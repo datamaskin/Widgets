@@ -17,7 +17,9 @@ class BootStrap {
             }
         }
         RequestContextHolder.requestAttributes = new GrailsWebRequest(new MockHttpServletRequest(), new MockHttpServletResponse(), servletContext)
-        String password = springSecurityService.encodePassword('lutefisk')
+//        String password = springSecurityService.encodePassword('lutefisk')
+        String password = "lutefisk"
+        println("Bootstrap password: " + password)
 
         if (!User.findByUsername("david")) {
             User david = new User(username:  'david',
@@ -31,7 +33,10 @@ class BootStrap {
             ["ROLE_USER"].each {
                 UserRole.create(david, Role.findByAuthority(it), true)
             }
+            println("Bootstrap user: " + david.username)
+            println("Bootstrap password: " + david.password)
         }
+
     }
     def destroy = {
     }
