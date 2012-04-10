@@ -13,7 +13,7 @@ class User {
 
 	static constraints = {
 		username blank: false, unique: true
-		password blank: false
+		password blank: false, matches: /[a-z0-9]+/, size: 5..12, charSeq: true
 	}
 
 	static mapping = {
