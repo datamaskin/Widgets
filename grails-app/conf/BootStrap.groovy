@@ -15,28 +15,29 @@ class BootStrap {
                     new Role(authority: it).save(failOnError: true)
                 }
             }
-        }
-        RequestContextHolder.requestAttributes = new GrailsWebRequest(new MockHttpServletRequest(), new MockHttpServletResponse(), servletContext)
-//        String password = springSecurityService.encodePassword('lutefisk')
-        String password = "lutefisk"
-        println("Bootstrap password: " + password)
+//          Put the rest of the intilialization here
+            RequestContextHolder.requestAttributes = new GrailsWebRequest(new MockHttpServletRequest(), new MockHttpServletResponse(), servletContext)
+            //        String password = springSecurityService.encodePassword('killroy')
+            String password = "killroy"
+            println("Bootstrap password: " + password)
 
-        if (!User.findByUsername("david")) {
-            User david = new User(username:  'david',
-                enabled: true,
-                password: password,
-                emailaddress: 'david@davidwbrown.name',
-                firstname: 'David',
-                lastname: 'Brown'
-            )
-            david.save(failOnError: true);
-            ["ROLE_USER"].each {
-                UserRole.create(david, Role.findByAuthority(it), true)
+            if (!User.findByUsername("david")) {
+                User david = new User(username:  'david',
+                    enabled: true,
+                    password: password,
+                    emailaddress: 'david@davidwbrown.name',
+                    firstname: 'David',
+                    lastname: 'Brown'
+                )
+                david.save(failOnError: true);
+                ["ROLE_USER"].each {
+                    UserRole.create(david, Role.findByAuthority(it), true)
+                }
+                println("Bootstrap user: " + david.username)
+                println("Bootstrap password: " + david.password)
             }
-            println("Bootstrap user: " + david.username)
-            println("Bootstrap password: " + david.password)
-        }
 
+        }
     }
     def destroy = {
     }
